@@ -22,7 +22,7 @@ namespace M5HW1
         {
             var userById = await _userService.GetUserById(2);
             var notFoundUserById = await _userService.GetUserById(343);
-            var listOfUsers = await _userService.GetUsersByPage(2);
+            var listOfUsersByPage = await _userService.GetUsersByPage(2);
             var listOfUsersWithDelay = await _userService.GetUsersWithDelay(3);
             var createdUser = await _userService.CreateUser("morpheus", "leader");
             var updatedUserWithPut = await _userService.PutUser(2, "morpheus", "zion resident");

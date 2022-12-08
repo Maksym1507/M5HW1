@@ -43,7 +43,7 @@ namespace M5HW1.Services
             return result?.Data;
         }
 
-        public async Task<UserDto[]> GetUsersByPage(int page)
+        public async Task<PageBaseResponse<UserDto>> GetUsersByPage(int page)
         {
             var result = await _httpClientFactory.SendAsync<PageBaseResponse<UserDto>, object>(
                 $"{_options.Host}{_userApi}?page={page}",
@@ -54,7 +54,7 @@ namespace M5HW1.Services
                 _logger.LogInformation($"Users on page = {result.Page} were found");
             }
 
-            return result?.Data;
+            return result!;
         }
 
         public async Task<UserDto[]> GetUsersWithDelay(int delay)
@@ -67,7 +67,7 @@ namespace M5HW1.Services
                 _logger.LogInformation($"Users were found");
             }
 
-            return result?.Data;
+            return result?.Data!;
         }
 
         public async Task<UserResponse> CreateUser(string name, string job)
@@ -105,7 +105,7 @@ namespace M5HW1.Services
                 _logger.LogInformation($"User with name = {result.Name} was updated");
             }
 
-            return result;
+            return result!;
         }
 
         public async Task<UpdateUserResponse> PatchUser(int id, string name, string job)
@@ -124,7 +124,7 @@ namespace M5HW1.Services
                 _logger.LogInformation($"User with name = {result.Name} was updated");
             }
 
-            return result;
+            return result!;
         }
 
         public async Task DeleteUser(int id)

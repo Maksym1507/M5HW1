@@ -39,10 +39,10 @@ namespace M5HW1.Services
                 _logger.LogInformation($"Resource with id = {id} wasn't found");
             }
 
-            return result?.Data;
+            return result?.Data!;
         }
 
-        public async Task<ResourceDto[]> GetResources()
+        public async Task<PageBaseResponse<ResourceDto>> GetResources()
         {
             var result = await _httpClientFactory.SendAsync<PageBaseResponse<ResourceDto>, object>(
                 $"{_options.Host}{_resourceApi}", HttpMethod.Get);
@@ -52,7 +52,7 @@ namespace M5HW1.Services
                 _logger.LogInformation($"Resources on page = {result.Page} were found");
             }
 
-            return result?.Data;
+            return result!;
         }
     }
 }
