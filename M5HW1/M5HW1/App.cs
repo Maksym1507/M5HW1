@@ -29,9 +29,9 @@ namespace M5HW1
             var updatedUserWithPatch = await _userService.PatchUser(2, "morpheus", "zion resident");
             await _userService.DeleteUser(2);
             var registerUser = await _authService.Register("eve.holt@reqres.in", "pistol");
-            var unsuccessfulRegisterUser = await _authService.Register("sydney@fife", null);
+            var unsuccessfulRegisterUser = await _authService.Register("sydney@fife", string.Empty);
             var loginUser = await _authService.Login("eve.holt@reqres.in", "cityslicka");
-            var unsuccessfulLoginUser = await _authService.Login("eve.holt@reqres.in", null);
+            var unsuccessfulLoginUser = await _authService.Login("eve.holt@reqres.in", string.Empty);
             var resourceById = await _resourceService.GetResourceById(2);
             var notFoundResourceById = await _resourceService.GetResourceById(30);
             var listOfResources = await _resourceService.GetResources();

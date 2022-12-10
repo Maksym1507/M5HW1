@@ -5,7 +5,7 @@ namespace M5HW1.Services.Abstractions
 {
     public interface IResourceService
     {
-        Task<PageBaseResponse<ResourceDto>> GetResources();
+        Task<ReqresPageResponse<ResourceDto[]>> GetResources();
 
         Task<ResourceDto> GetResourceById(int id);
     }

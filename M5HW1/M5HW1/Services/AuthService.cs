@@ -25,7 +25,7 @@ namespace M5HW1.Services
             _options = options.Value;
         }
 
-        public async Task<AuthResponse> Register(string? email, string? password)
+        public async Task<AuthResponse> Register(string email, string password)
         {
             var result = await _httpClientFactory.SendAsync<AuthResponse, AuthRequest>(
                 $"{_options.Host}{_registerApi}",
@@ -36,12 +36,12 @@ namespace M5HW1.Services
                     Password = password
                 });
 
-            if (result.Token != null)
+            if (result?.Token != null)
             {
                 _logger.LogInformation($"User was sign up. Token: {result.Token}");
             }
 
-            if (result.Error != null)
+            if (result?.Error != null)
             {
                 _logger.LogInformation($"Unsuccessful attempt to sign up. Error: {result.Error}");
             }
@@ -49,7 +49,7 @@ namespace M5HW1.Services
             return result;
         }
 
-        public async Task<AuthResponse> Login(string? email, string? password)
+        public async Task<AuthResponse> Login(string email, string password)
         {
             var result = await _httpClientFactory.SendAsync<AuthResponse, AuthRequest>(
                 $"{_options.Host}{_loginApi}",
@@ -60,12 +60,12 @@ namespace M5HW1.Services
                     Password = password
                 });
 
-            if (result.Token != null)
+            if (result?.Token != null)
             {
                 _logger.LogInformation($"User was sign in. Token: = {result.Token}");
             }
 
-            if (result.Error != null)
+            if (result?.Error != null)
             {
                 _logger.LogInformation($"Unsuccessful attempt to sign in. Error: {result.Error}");
             }

@@ -5,9 +5,9 @@ namespace M5HW1.Services.Abstractions
 {
     public interface IUserService
     {
-        Task<PageBaseResponse<UserDto>> GetUsersByPage(int page);
+        Task<ReqresPageResponse<UserDto[]>> GetUsersByPage(int page);
 
-        Task<UserDto[]> GetUsersWithDelay(int delay);
+        Task<ReqresPageResponse<UserDto[]>> GetUsersWithDelay(int delay);
 
         Task<UserDto> GetUserById(int id);
 

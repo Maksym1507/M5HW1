@@ -27,15 +27,15 @@ namespace M5HW1.Services
 
         public async Task<UserDto> GetUserById(int id)
         {
-            var result = await _httpClientFactory.SendAsync<BaseResponse<UserDto>, object>(
+            var result = await _httpClientFactory.SendAsync<ReqresPageResponse<UserDto>, object>(
                 $"{_options.Host}{_userApi}/{id}", HttpMethod.Get);
 
             if (result?.Data != null)
             {
-                _logger.LogInformation($"User with id = {result.Data.Id} was found");
+                _logger.LogInformation($"User with id = {id} was found");
             }
 
-            if (result?.Data == null)
+            if (result == null)
             {
                 _logger.LogInformation($"User with id = {id} wasn't found");
             }
@@ -43,9 +43,9 @@ namespace M5HW1.Services
             return result?.Data;
         }
 
-        public async Task<PageBaseResponse<UserDto>> GetUsersByPage(int page)
+        public async Task<ReqresPageResponse<UserDto[]>> GetUsersByPage(int page)
         {
-            var result = await _httpClientFactory.SendAsync<PageBaseResponse<UserDto>, object>(
+            var result = await _httpClientFactory.SendAsync<ReqresPageResponse<UserDto[]>, object>(
                 $"{_options.Host}{_userApi}?page={page}",
                 HttpMethod.Get);
 
@@ -57,9 +57,9 @@ namespace M5HW1.Services
             return result!;
         }
 
-        public async Task<UserDto[]> GetUsersWithDelay(int delay)
+        public async Task<ReqresPageResponse<UserDto[]>> GetUsersWithDelay(int delay)
         {
-            var result = await _httpClientFactory.SendAsync<PageBaseResponse<UserDto>, object>(
+            var result = await _httpClientFactory.SendAsync<ReqresPageResponse<UserDto[]>, object>(
                 $"{_options.Host}{_userApi}?delay={delay}", HttpMethod.Get);
 
             if (result?.Data != null)
@@ -67,7 +67,7 @@ namespace M5HW1.Services
                 _logger.LogInformation($"Users were found");
             }
 
-            return result?.Data!;
+            return result!;
         }
 
         public async Task<UserResponse> CreateUser(string name, string job)

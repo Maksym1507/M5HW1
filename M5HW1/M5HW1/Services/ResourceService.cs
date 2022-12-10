@@ -26,25 +26,25 @@ namespace M5HW1.Services
 
         public async Task<ResourceDto> GetResourceById(int id)
         {
-            var result = await _httpClientFactory.SendAsync<BaseResponse<ResourceDto>, object>(
+            var result = await _httpClientFactory.SendAsync<ReqresPageResponse<ResourceDto>, object>(
                 $"{_options.Host}{_resourceApi}/{id}", HttpMethod.Get);
 
             if (result?.Data != null)
             {
-                _logger.LogInformation($"Resource with id = {result.Data.Id} was found");
+                _logger.LogInformation($"Resource with id = {id} was found");
             }
 
-            if (result?.Data == null)
+            if (result == null)
             {
                 _logger.LogInformation($"Resource with id = {id} wasn't found");
             }
 
-            return result?.Data!;
+            return result?.Data;
         }
 
-        public async Task<PageBaseResponse<ResourceDto>> GetResources()
+        public async Task<ReqresPageResponse<ResourceDto[]>> GetResources()
         {
-            var result = await _httpClientFactory.SendAsync<PageBaseResponse<ResourceDto>, object>(
+            var result = await _httpClientFactory.SendAsync<ReqresPageResponse<ResourceDto[]>, object>(
                 $"{_options.Host}{_resourceApi}", HttpMethod.Get);
 
             if (result?.Data != null)
@@ -52,7 +52,7 @@ namespace M5HW1.Services
                 _logger.LogInformation($"Resources on page = {result.Page} were found");
             }
 
-            return result!;
+            return result;
         }
     }
 }
